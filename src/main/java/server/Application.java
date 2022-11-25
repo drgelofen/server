@@ -16,7 +16,7 @@ public class Application {
 
     public static final String FCM_KEY = "AAAAs3IidDY:APA91bG4BsCrv2mMyd2X-78av0x_XuSeLWxNRgciPJ8bpo76gOPIZJ42EhuIu9QaeXMsbecQzff7d8IBZuNlhJZNXUO1UcYM2jhJ3SK3NxmvkxR2P4Mz7hw-egisYCZFKTxWq89A2A52";
     public static final String OTP_SECRET = "thisismytokenforqewrth23werfg";
-    public static final String OTP_KEY = "e8a42ccad56b67ddf9a0288b";
+    public static final String OTP_KEY = "836ffee96790d04a909402aa";
 
     public static final String SCHEMA_NAME = "gelofen";
     public static final String SCHEMA_CRED = "102017";

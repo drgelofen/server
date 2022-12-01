@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65805bf5-8388-4e9b-a229-ef07e78cd924" name="Default Changelist" comment="init">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/lib/utils/SchemaUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/lib/utils/SchemaUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/application.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/Application.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/controller/user/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/controller/user/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/lib/center/MailCenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/lib/center/MailCenter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/lib/center/OTPCenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/lib/center/OTPCenter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/server/lib/utils/SchemaUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/lib/utils/SchemaUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/payment/failure.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/payment/failure.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/payment/success.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/payment/success.html" afterDir="false" />
-    </list>
+    <list default="true" id="65805bf5-8388-4e9b-a229-ef07e78cd924" name="Default Changelist" comment="init" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -204,6 +191,9 @@
         <option value="$PROJECT_DIR$/src/main/java/server/controller/setting/SettingController.java" />
       </list>
     </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MavenProjectNavigator">
     <treeState>
@@ -867,13 +857,7 @@
       <workItem from="1669374634259" duration="629000" />
       <workItem from="1669398660399" duration="17000" />
       <workItem from="1669398758410" duration="12000" />
-    </task>
-    <task id="LOCAL-00996" summary="init">
-      <created>1606816074499</created>
-      <option name="number" value="00996" />
-      <option name="presentableId" value="LOCAL-00996" />
-      <option name="project" value="LOCAL" />
-      <updated>1606816074499</updated>
+      <workItem from="1669914724047" duration="467000" />
     </task>
     <task id="LOCAL-00997" summary="init">
       <created>1606817329592</created>
@@ -1211,7 +1195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1624363735498</updated>
     </task>
-    <option name="localTasksCounter" value="1045" />
+    <task id="LOCAL-01045" summary="init">
+      <created>1669914891600</created>
+      <option name="number" value="01045" />
+      <option name="presentableId" value="LOCAL-01045" />
+      <option name="project" value="LOCAL" />
+      <updated>1669914891600</updated>
+    </task>
+    <option name="localTasksCounter" value="1046" />
     <servers />
   </component>
   <component name="TimeTrackingManager">

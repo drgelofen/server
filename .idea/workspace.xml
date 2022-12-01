@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65805bf5-8388-4e9b-a229-ef07e78cd924" name="Default Changelist" comment="init" />
+    <list default="true" id="65805bf5-8388-4e9b-a229-ef07e78cd924" name="Default Changelist" comment="init">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/lib/utils/SchemaUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/lib/utils/SchemaUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/application.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/controller/user/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/controller/user/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/lib/center/MailCenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/lib/center/MailCenter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/lib/center/OTPCenter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/lib/center/OTPCenter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/server/lib/utils/SchemaUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/server/lib/utils/SchemaUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/payment/failure.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/payment/failure.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/payment/success.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/payment/success.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -369,7 +382,12 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ehsan/Desktop/Database&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;3676d55f84497cbeadfc614c1b1b62fc&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -845,6 +863,10 @@
       <workItem from="1622801457669" duration="9000" />
       <workItem from="1624361985208" duration="1156000" />
       <workItem from="1669183092810" duration="41000" />
+      <workItem from="1669374382779" duration="34000" />
+      <workItem from="1669374634259" duration="629000" />
+      <workItem from="1669398660399" duration="17000" />
+      <workItem from="1669398758410" duration="12000" />
     </task>
     <task id="LOCAL-00996" summary="init">
       <created>1606816074499</created>
@@ -1244,6 +1266,9 @@
       <window_info anchor="right" id="Database" order="10" side_tool="true" weight="0.3295302" />
       <window_info anchor="right" id="Bean Validation" order="11" weight="0.3295302" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">

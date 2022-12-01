@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class SchemaUtil {
 
-    private static final String DATABASE_SCHEMA = "jdbc:postgresql://localhost/" + Application.SCHEMA_NAME
+    private static final String DATABASE_SCHEMA = "jdbc:postgresql://localhost:7070/" + Application.SCHEMA_NAME
             + "?user=" + Application.SCHEMA_USER + "&password=" + Application.SCHEMA_CRED;
     public static final String TABLE_PREFIX = "__", TABLE_POSTFIX = "__";
 

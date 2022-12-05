@@ -61,6 +61,8 @@ public class UserPackage extends DatabaseModel<UserPackage> {
 
     private Long package_remain;
 
+    private Boolean isAccepted = false;
+
     public Long getComment_date() {
         return comment_date;
     }
@@ -183,5 +185,13 @@ public class UserPackage extends DatabaseModel<UserPackage> {
         if (doctor != null) doctor.trim();
         if (user != null) user.trim();
         return super.trim();
+    }
+
+    public Boolean getAccepted() {
+        return isAccepted;
+    }
+
+    public void setAccepted(Boolean accepted) {
+        isAccepted = accepted;
     }
 }

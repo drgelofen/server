@@ -154,6 +154,23 @@ public class PackageController extends Controller<SubPackage> {
     }
 
     @Authenticate
+    public ResponseEntity accept(Database database, Request request)throws Throwable{
+        UserPackage parse = parse(request, UserPackage.class);
+
+        Dao<UserPackage,Long> dao = getDaoLong(database,UserPackage.class);
+        UserPackage userPackage = dao.queryForId(parse.getRecord_id());
+
+        if (userPackage == null || userPackage.getAccepted() || request.getAuth_user() == null) {
+            return pass(HttpStatus.EXPECTATION_FAILED);
+        }
+
+        userPackage.setAccepted(true);
+        dao.update(userPackage);
+
+        return pass(HttpStatus.OK);
+    }
+
+    @Authenticate
     public ResponseEntity settlePackage(Database database, Request request) throws Throwable {
         UserDoctor parse = parse(request, UserDoctor.class);
         if (parse == null || parse.getRecord_id() == null || parse.getSettle_type() == null || request.getAuth_user() == null) {

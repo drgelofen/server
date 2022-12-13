@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import server.controller.setting.SettingController;
-import server.controller.ticket.TicketController;
 import server.lib.center.FCMCenter;
 import server.lib.interfacing.Authenticate;
 import server.lib.interfacing.Authorize;
@@ -20,6 +19,7 @@ import server.lib.orm.stmt.Where;
 import server.lib.utils.Controller;
 import server.lib.utils.Database;
 import server.lib.utils.StringUtil;
+import server.model.ApiModels.UserDoctor_UserPackageApiModel;
 import server.model.*;
 
 import java.time.Instant;
@@ -171,44 +171,80 @@ public class PackageController extends Controller<SubPackage> {
     }
 
     @Authenticate
-    public ResponseEntity settlePackage(Database database, Request request) throws Throwable {
-        UserDoctor parse = parse(request, UserDoctor.class);
-        if (parse == null || parse.getRecord_id() == null || parse.getSettle_type() == null || request.getAuth_user() == null) {
+    public ResponseEntity settlePackage(Database database,Request request) throws Throwable {
+
+        UserDoctor_UserPackageApiModel parse = parse(request, UserDoctor_UserPackageApiModel.class);
+        if (parse == null || request.getAuth_user() == null) {
             return pass(HttpStatus.BAD_REQUEST);
         }
+
         Dao<UserDoctor, Long> dao = getDaoLong(database, UserDoctor.class);
-        UserDoctor userDoctor = dao.queryForId(parse.getRecord_id());
+        UserDoctor userDoctor = dao.queryForId(parse.getUserDoctorId());
         if (userDoctor == null || !userDoctor.getRecord_canceled() || userDoctor.getRecord_settled()) {
             return pass(HttpStatus.EXPECTATION_FAILED);
         }
-        double sum = 0;
-        Dao<UserPackage, Long> daoLong = getDaoLong(database, UserPackage.class);
-        List<UserPackage> query = daoLong.queryBuilder()
-                .where().eq(UserDoctor.DOCTOR, userDoctor.getDoctor().getDoctor_id())
-                .and().eq(UserDoctor.USER, userDoctor.getUser()).query();
-        Dao<SubPackage, UUID> subPackages = getDao(database);
-        for (UserPackage userPackage : query) {
-            subPackages.refresh(userPackage.getSub_package());
-            sum = sum + userPackage.getSub_package().getPackage_sell_price();
-        }
-        if (parse.getSettle_type() == UserDoctor.SETTLE_TYPE_TICKET) {
-            getDao(database, Doctor.class).refresh(userDoctor.getDoctor());
 
-            Ticket ticket = new Ticket();
-            ticket.setTicket_title("درخواست استرداد وجه مشاوره با " + userDoctor.getDoctor().getDoctor_name());
-            ticket.setTicket_description("مبلغ " + StringUtil.formatPrice(sum)
-                    + " به حساب " + parse.getSettle_account() + " به نام " + parse.getSettle_name() + "واریز گردد.");
-            request.setBody(toJson(ticket));
-            TicketController.createTicket(database, request);
-        } else {
-            Dao<User, UUID> users = getDao(database, User.class);
-            request.getAuth_user().setUser_wallet((int) (request.getAuth_user().getUser_wallet() + sum));
-            users.update(request.getAuth_user());
+        Dao<UserPackage, Long> daoLong = getDaoLong(database, UserPackage.class);
+        UserPackage userPackage = daoLong.queryForId(parse.getUserPackageId());
+
+        if (userPackage.getAccepted()){
+            return pass(HttpStatus.EXPECTATION_FAILED);
         }
+
+        Dao<SubPackage, UUID> subPackages = getDao(database);
+        SubPackage subPackage = subPackages.queryForId(userPackage.getSub_package().getPackage_id());
+
+        Dao<User, UUID> users = getDao(database, User.class);
+        request.getAuth_user().setUser_wallet((int) (request.getAuth_user().getUser_wallet() + subPackage.getPackage_sell_price()));
+        users.update(request.getAuth_user());
+
         userDoctor.setRecord_settled(true);
         dao.update(userDoctor);
+
         return pass(HttpStatus.OK);
     }
+
+//    @Authenticate
+//    public ResponseEntity settlePackage(Database database, Request request) throws Throwable {
+//        UserDoctor parse = parse(request, UserDoctor.class);
+//        if (parse == null || parse.getRecord_id() == null || parse.getSettle_type() == null || request.getAuth_user() == null) {
+//            return pass(HttpStatus.BAD_REQUEST);
+//        }
+//        Dao<UserDoctor, Long> dao = getDaoLong(database, UserDoctor.class);
+//        UserDoctor userDoctor = dao.queryForId(parse.getRecord_id());
+//        if (userDoctor == null || !userDoctor.getRecord_canceled() || userDoctor.getRecord_settled()) {
+//            return pass(HttpStatus.EXPECTATION_FAILED);
+//        }
+//        Dao<UserPackage, Long> daoLong = getDaoLong(database, UserPackage.class);
+//
+//        double sum = 0;
+//        List<UserPackage> query = daoLong.queryBuilder()
+//                .where().eq(UserDoctor.DOCTOR, userDoctor.getDoctor().getDoctor_id())
+//                .and().eq(UserDoctor.USER, userDoctor.getUser()).query();
+//        Dao<SubPackage, UUID> subPackages = getDao(database);
+//        for (UserPackage userPackage : query) {
+//            subPackages.refresh(userPackage.getSub_package());
+//            sum = sum + userPackage.getSub_package().getPackage_sell_price();
+//        }
+//
+//        if (parse.getSettle_type() == UserDoctor.SETTLE_TYPE_TICKET) {
+//            getDao(database, Doctor.class).refresh(userDoctor.getDoctor());
+//
+//            Ticket ticket = new Ticket();
+//            ticket.setTicket_title("درخواست استرداد وجه مشاوره با " + userDoctor.getDoctor().getDoctor_name());
+//            ticket.setTicket_description("مبلغ " + StringUtil.formatPrice(sum)
+//                    + " به حساب " + parse.getSettle_account() + " به نام " + parse.getSettle_name() + "واریز گردد.");
+//            request.setBody(toJson(ticket));
+//            TicketController.createTicket(database, request);
+//        } else {
+//            Dao<User, UUID> users = getDao(database, User.class);
+//            request.getAuth_user().setUser_wallet((int) (request.getAuth_user().getUser_wallet() + sum));
+//            users.update(request.getAuth_user());
+//        }
+//        userDoctor.setRecord_settled(true);
+//        dao.update(userDoctor);
+//        return pass(HttpStatus.OK);
+//    }
 
     private long calculateCancelTime(Database database, UserDoctor userDoctor) throws Throwable {
         if (userDoctor.getRecord_canceled() || userDoctor.getRecord_settled()) {

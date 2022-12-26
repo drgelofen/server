@@ -61,6 +61,7 @@ public class UserPackage extends DatabaseModel<UserPackage> {
 
     private Long package_remain;
 
+    @DatabaseField(defaultValue = "false")
     private Boolean isAccepted = false;
 
     public Long getComment_date() {

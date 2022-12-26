@@ -178,13 +178,13 @@ public class PackageController extends Controller<SubPackage> {
             return pass(HttpStatus.BAD_REQUEST);
         }
 
-        Dao<UserDoctor, Long> dao = getDaoLong(database, UserDoctor.class);
+        Dao<UserDoctor, UUID> dao = getDao(database, UserDoctor.class);
         UserDoctor userDoctor = dao.queryForId(parse.getUserDoctorId());
         if (userDoctor == null || !userDoctor.getRecord_canceled() || userDoctor.getRecord_settled()) {
             return pass(HttpStatus.EXPECTATION_FAILED);
         }
 
-        Dao<UserPackage, Long> daoLong = getDaoLong(database, UserPackage.class);
+        Dao<UserPackage, UUID> daoLong = getDao(database, UserPackage.class);
         UserPackage userPackage = daoLong.queryForId(parse.getUserPackageId());
 
         if (userPackage.getAccepted()){
@@ -206,7 +206,7 @@ public class PackageController extends Controller<SubPackage> {
 
 //    @Authenticate
 //    public ResponseEntity settlePackage(Database database, Request request) throws Throwable {
-//        UserDoctor parse = parse(request, UserDoctor.class);
+//       UserDoctor parse = parse(request, UserDoctor.class);
 //        if (parse == null || parse.getRecord_id() == null || parse.getSettle_type() == null || request.getAuth_user() == null) {
 //            return pass(HttpStatus.BAD_REQUEST);
 //        }

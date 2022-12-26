@@ -22,6 +22,7 @@ import server.lib.utils.StringUtil;
 import server.model.ApiModels.UserDoctor_UserPackageApiModel;
 import server.model.*;
 
+import java.sql.SQLException;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
@@ -167,6 +168,19 @@ public class PackageController extends Controller<SubPackage> {
         userPackage.setAccepted(true);
         dao.update(userPackage);
 
+        return pass(HttpStatus.OK);
+    }
+
+    public ResponseEntity seedFalse(Database database,Request request) throws Throwable {
+        Dao<UserPackage,Long> dao = getDaoLong(database,UserPackage.class);
+        List<UserPackage> userpackages = dao.queryForAll();
+        userpackages.stream().forEach(userPackage -> {
+            userPackage.setAccepted(false);
+            try {
+                dao.update(userPackage);
+            } catch (SQLException e) {
+            }
+        });
         return pass(HttpStatus.OK);
     }
 
@@ -405,4 +419,5 @@ public class PackageController extends Controller<SubPackage> {
         dao.update(doctor);
         return pass(HttpStatus.OK);
     }
+
 }

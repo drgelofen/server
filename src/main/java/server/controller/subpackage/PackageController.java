@@ -178,13 +178,13 @@ public class PackageController extends Controller<SubPackage> {
             return pass(HttpStatus.BAD_REQUEST);
         }
 
-        Dao<UserDoctor, UUID> dao = getDao(database, UserDoctor.class);
+        Dao<UserDoctor, Long> dao = getDaoLong(database, UserDoctor.class);
         UserDoctor userDoctor = dao.queryForId(parse.getUserDoctorId());
         if (userDoctor == null || !userDoctor.getRecord_canceled() || userDoctor.getRecord_settled()) {
             return pass(HttpStatus.EXPECTATION_FAILED);
         }
 
-        Dao<UserPackage, UUID> daoLong = getDao(database, UserPackage.class);
+        Dao<UserPackage, Long> daoLong = getDaoLong(database, UserPackage.class);
         UserPackage userPackage = daoLong.queryForId(parse.getUserPackageId());
 
         if (userPackage.getAccepted()){

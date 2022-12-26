@@ -4,28 +4,28 @@ import java.util.UUID;
 
 public class UserDoctor_UserPackageApiModel {
 
-    private UUID userDoctorId;
+    private Long userDoctorId;
 
-    private UUID userPackageId;
+    private Long userPackageId;
 
-    public UserDoctor_UserPackageApiModel(String userDoctorId, String userPackageId) {
-        this.userDoctorId = UUID.fromString(userDoctorId);
-        this.userPackageId = UUID.fromString(userPackageId);
+    public UserDoctor_UserPackageApiModel(Long userDoctorId, Long userPackageId) {
+        this.userDoctorId = userDoctorId;
+        this.userPackageId = userPackageId;
     }
 
-    public UUID getUserDoctorId() {
+    public Long getUserDoctorId() {
         return userDoctorId;
     }
 
-    public void setUserDoctorId(UUID userDoctorId) {
+    public void setUserDoctorId(Long userDoctorId) {
         this.userDoctorId = userDoctorId;
     }
 
-    public UUID getUserPackageId() {
+    public Long getUserPackageId() {
         return userPackageId;
     }
 
-    public void setUserPackageId(UUID userPackageId) {
+    public void setUserPackageId(Long userPackageId) {
         this.userPackageId = userPackageId;
     }
 }

@@ -170,19 +170,19 @@ public class PackageController extends Controller<SubPackage> {
 
         return pass(HttpStatus.OK);
     }
-//
-//    public ResponseEntity seedFalse(Database database,Request request) throws Throwable {
-//        Dao<UserPackage,Long> dao = getDaoLong(database,UserPackage.class);
-//        List<UserPackage> userpackages = dao.queryForAll();
-//        userpackages.stream().forEach(userPackage -> {
-//            userPackage.setAccepted(false);
-//            try {
-//                dao.update(userPackage);
-//            } catch (SQLException e) {
-//            }
-//        });
-//        return pass(HttpStatus.OK);
-//    }
+
+    public ResponseEntity seedFalse(Database database,Request request) throws Throwable {
+        Dao<UserPackage,Long> dao = getDaoLong(database,UserPackage.class);
+        List<UserPackage> userpackages = dao.queryForAll();
+        userpackages.stream().forEach(userPackage -> {
+            userPackage.setAccepted(false);
+            try {
+                dao.update(userPackage);
+            } catch (SQLException e) {
+            }
+        });
+        return pass(HttpStatus.OK);
+    }
 
     @Authenticate
     public ResponseEntity settlePackage(Database database,Request request) throws Throwable {

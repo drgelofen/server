@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import server.controller.setting.SettingController;
+import server.controller.ticket.TicketController;
 import server.lib.center.FCMCenter;
 import server.lib.interfacing.Authenticate;
 import server.lib.interfacing.Authorize;
@@ -155,10 +156,10 @@ public class PackageController extends Controller<SubPackage> {
     }
 
     @Authenticate
-    public ResponseEntity accept(Database database, Request request)throws Throwable{
+    public ResponseEntity accept(Database database, Request request) throws Throwable {
         UserPackage parse = parse(request, UserPackage.class);
 
-        Dao<UserPackage,Long> dao = getDaoLong(database,UserPackage.class);
+        Dao<UserPackage, Long> dao = getDaoLong(database, UserPackage.class);
         UserPackage userPackage = dao.queryForId(parse.getRecord_id());
 
         if (userPackage == null || userPackage.getAccepted()) {
@@ -171,21 +172,21 @@ public class PackageController extends Controller<SubPackage> {
         return pass(HttpStatus.OK);
     }
 
-    public ResponseEntity seedFalse(Database database,Request request) throws Throwable {
-        Dao<UserPackage,Long> dao = getDaoLong(database,UserPackage.class);
-        List<UserPackage> userpackages = dao.queryForAll();
-        userpackages.stream().forEach(userPackage -> {
-            userPackage.setAccepted(false);
-            try {
-                dao.update(userPackage);
-            } catch (SQLException e) {
-            }
-        });
-        return pass(HttpStatus.OK);
-    }
+//    public ResponseEntity seedFalse(Database database,Request request) throws Throwable {
+//        Dao<UserPackage,Long> dao = getDaoLong(database,UserPackage.class);
+//        List<UserPackage> userpackages = dao.queryForAll();
+//        userpackages.stream().forEach(userPackage -> {
+//            userPackage.setAccepted(false);
+//            try {
+//                dao.update(userPackage);
+//            } catch (SQLException e) {
+//            }
+//        });
+//        return pass(HttpStatus.OK);
+//    }
 
     @Authenticate
-    public ResponseEntity settlePackage(Database database,Request request) throws Throwable {
+    public ResponseEntity settlePackage(Database database, Request request) throws Throwable {
 
         UserDoctor_UserPackageApiModel parse = parse(request, UserDoctor_UserPackageApiModel.class);
         if (parse == null || request.getAuth_user() == null) {
@@ -201,20 +202,40 @@ public class PackageController extends Controller<SubPackage> {
         Dao<UserPackage, Long> daoLong = getDaoLong(database, UserPackage.class);
         UserPackage userPackage = daoLong.queryForId(parse.getUserPackageId());
 
-        if (userPackage.getAccepted()){
+        if (userPackage.getAccepted()) {
             return pass(HttpStatus.EXPECTATION_FAILED);
         }
 
         Dao<SubPackage, UUID> subPackages = getDao(database);
         SubPackage subPackage = subPackages.queryForId(userPackage.getSub_package().getPackage_id());
 
-        Dao<User, UUID> users = getDao(database, User.class);
-        request.getAuth_user().setUser_wallet((int) (request.getAuth_user().getUser_wallet() + subPackage.getPackage_sell_price()));
-        users.update(request.getAuth_user());
+        double sum = subPackage.getPackage_sell_price();
 
-        userDoctor.setRecord_settled(true);
-        dao.update(userDoctor);
+        if (parse.getSettleType() == 1) {
 
+            Dao<User, UUID> users = getDao(database, User.class);
+            request.getAuth_user().setUser_wallet((int) sum);
+
+            users.update(request.getAuth_user());
+
+            userDoctor.setRecord_settled(true);
+            userDoctor.setRecord_canceled(true);
+
+            dao.update(userDoctor);
+
+        } else if (parse.getSettleType() == 2) {
+
+            if (parse.getSettleName() == null || parse.getSettleAccount() == null) {
+                return pass(HttpStatus.BAD_REQUEST);
+            }
+
+            Ticket ticket = new Ticket();
+            ticket.setTicket_title("درخواست استرداد وجه مشاوره با " + userDoctor.getDoctor().getDoctor_name());
+            ticket.setTicket_description("مبلغ " + StringUtil.formatPrice(sum)
+                    + " به حساب " + parse.getSettleAccount() + " به نام " + parse.getSettleName() + "واریز گردد.");
+            request.setBody(toJson(ticket));
+            TicketController.createTicket(database, request);
+        }
         return pass(HttpStatus.OK);
     }
 

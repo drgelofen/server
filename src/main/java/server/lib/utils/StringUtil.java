@@ -74,6 +74,10 @@ public class StringUtil {
         return callBackUrl;
     }
 
+    public static String certifyNonSSL(String callbackUrl){
+        return "http://" + callbackUrl.substring(7);
+    }
+
     public static String random(int i) {
         return RandomStringUtils.randomNumeric(i);
     }

@@ -35,7 +35,7 @@ public class FileController {
     @PostMapping("/upload/{sub}")
     public ResponseEntity upload(@PathVariable("sub") String sub_name, @RequestParam("file") MultipartFile file, Request request) {
         try (Database database = SchemaUtil.getDB()) {
-            if (!Controller.verifyToken(database, request)) return Controller.pass(HttpStatus.UNAUTHORIZED);
+            //if (!Controller.verifyToken(database, request)) return Controller.pass(HttpStatus.UNAUTHORIZED);
             String ext = FilenameUtils.getExtension(file.getOriginalFilename());
             if (StringUtil.isEmpty(ext)) {
                 return Controller.pass(HttpStatus.BAD_REQUEST);
@@ -44,7 +44,7 @@ public class FileController {
             String id = Instant.now().toEpochMilli() + "-" + StringUtil.randomAlphaNumeric(10) + "." + ext;
             Path path = Paths.get(FileUtil.getStatic(sub_name).getAbsolutePath() + "/" + id);
             Files.write(path, file.getBytes());
-            return Controller.pass(HttpStatus.OK, StringUtil.certify(request.redirect("/file/download" + sub_name + id)));
+            return Controller.pass(HttpStatus.OK, StringUtil.certifyNonSSL(request.redirect("/file/download" + sub_name + id)));
         } catch (Throwable t) {
             return Controller.pass(HttpStatus.LOCKED, t);
         }
